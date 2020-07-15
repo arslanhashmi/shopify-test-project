@@ -1,8 +1,22 @@
 ## Getting started
 
+### Background
 This implements wrappers that take in a callback and its any number of parameters and respect the rate limits and retry on failures while the execution of those callbacks.
 
 ### Get up and running
+```sh
+$ git clone git@github.com:arslanhashmi/shopify-test-project.git
+
+$ cd shopify-test-project
+
+# Add .env file
+$ touch .env # with following content
+ #shopify-test-project/.env
+ SHOPIFY_API_KEY=insecure-api-key
+ SHOPIFY_API_SECRET=insecure-api-pass
+ SHOPIFY_SHOP=awesome-shope-id.myshopify.com/admin/api/2020-07
+```
+Next, from `shopify-test-project/` dir, setup the environment as follow:
 ```sh
 # First time, One liner to:
 # 1. setup the environment 
@@ -40,6 +54,8 @@ make down  # remove containers / volumes / networks
 # Or for later use, just stop them.
 make stop
 ```
+###### Demo
+![Demo Interaction](./assets/cli.gif)
 
 ### Running Tests
 ```sh
@@ -71,4 +87,3 @@ for products_page in api_iterator(shopify.Product):
 
 ---
 Yay! That's it. Thanks for following!
-

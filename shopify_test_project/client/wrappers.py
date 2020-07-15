@@ -22,7 +22,7 @@ def api_call_with_retry(func, *args, **kwargs):
         OR Any keyword arguments that would be passed to the function 
     """
     retries = kwargs.pop('retries', 3)
-    while retries >= 0:
+    while retries > 0:
         try:
             return func(*args, **kwargs)
         except connection.ClientError as exc:
@@ -41,7 +41,7 @@ def api_call_with_retry(func, *args, **kwargs):
             else:
                 raise
 
-    raise MaxRetriesExceeded(f"Max retries exceeded, retries={retries}.")
+    raise MaxRetriesExceeded("Max retries exceeded.")
 
 
 class ApiIterator(shopify.PaginatedIterator):
