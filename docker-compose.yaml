@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+
+  shopify:
+    container_name: shopify.client
+    build:
+        context: .
+        dockerfile: Dockerfile
+    restart: 'unless-stopped'
+    env_file:
+        - ./.env
+    volumes:
+      - './shopify/:/app/'
+    command: tail -f /dev/null
