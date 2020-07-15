@@ -11,5 +11,5 @@ services:
     env_file:
         - ./.env
     volumes:
-      - './shopify/:/app/'
+      - './shopify_test_project/:/app/'
     command: tail -f /dev/null

@@ -8,7 +8,9 @@ RUN adduser --disabled-login --system --no-create-home --gecos 'App User' app
 
 WORKDIR /app
 
-COPY --chown=app:root . /app
+ADD requirements.txt /app/requirements.txt
 RUN pip install -r /app/requirements.txt
+
+COPY --chown=app:root ./shopify_test_project/ /app
 
 USER app

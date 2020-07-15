@@ -1,11 +1,14 @@
 build:
 	docker-compose up -d --build
 
+stop:
+	docker-compose stop
+
 run:
-	docker-compose run shopify python -m shopify.py
+	docker exec -ti shopify.client python run.py
 
 ssh:
-	docker-compose run shopify /bin/bash
+	docker exec -ti shopify.client /bin/bash
 
 test:
 	docker-compose run shopify python -m unittests tests
