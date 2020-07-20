@@ -32,14 +32,16 @@ def api_call_with_retry(func, *args, **kwargs):
                              'Retrying in %s seconds...'), retry_after)
                 time.sleep(retry_after)
                 retries -= 1
-            elif exc.response.code >= 500:
-                retry_after = 4
-                logger.info(('Shopify API Response Code %s.'
-                             'Retrying in %s seconds...'), exc.response.code, retry_after)
-                time.sleep(retry_after)
-                retries -= 1
             else:
                 raise
+        except connection.ServerError as exc:
+            # HTTP error code 5xx (500..599)
+            # https://github.com/Shopify/pyactiveresource/blob/v2.2.1/pyactiveresource/connection.py#L23-L31
+            retry_after = 4
+            logger.info(('Shopify API Response Code %s.'
+                         'Retrying in %s seconds...'), exc.code, retry_after)
+            time.sleep(retry_after)
+            retries -= 1
 
     raise MaxRetriesExceeded("Max retries exceeded.")
 
